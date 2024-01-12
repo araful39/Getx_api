@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:getx_api/res/colors/app_color.dart';
+import 'package:getx_api/part-01/res/colors/app_color.dart';
 
 class RoundButton extends StatelessWidget {
   final VoidCallback onPress;

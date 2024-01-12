@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
-import 'package:getx_api/res/routes/routes_name.dart';
-
-import 'package:getx_api/view/login_screen.dart';
-import 'package:getx_api/view/splash_screen.dart';
+import 'package:getx_api/part-01/res/routes/routes_name.dart';
+import 'package:getx_api/part-01/view/login_screen.dart';
+import 'package:getx_api/part-01/view/splash_screen.dart';
 
 class AppRoutes{
   static appRoutes()=>[

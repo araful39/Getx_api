@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_api/res/colors/app_color.dart';
+import 'package:getx_api/part-01/res/colors/app_color.dart';
+import 'package:getx_api/part-01/res/components/round_button.dart';
+import 'package:getx_api/part-01/res/controller/login_controller.dart';
+import 'package:getx_api/part-01/utills/utills.dart';
+import 'package:getx_api/part-01/view/home_page.dart';
 
-import 'package:getx_api/res/components/round_button.dart';
-import 'package:getx_api/res/controller/login_controller.dart';
-import 'package:getx_api/utills/utills.dart';
-import 'package:getx_api/view/home_page.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
