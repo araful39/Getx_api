@@ -4,13 +4,14 @@ import 'package:getx_api/res/colors/app_color.dart';
 
 import 'package:getx_api/res/components/round_button.dart';
 import 'package:getx_api/res/controller/login_controller.dart';
-
-import 'home_page.dart';
+import 'package:getx_api/utills/utills.dart';
+import 'package:getx_api/view/home_page.dart';
 
 class LoginScreen extends StatelessWidget {
-   LoginScreen({super.key});
+  LoginScreen({super.key});
 
   final loginController = Get.put(LoginController());
+  final _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -23,58 +24,103 @@ class LoginScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 80),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextFormField(
-                controller: loginController.emailController.value,
-                focusNode: loginController.emailFocusNode.value,
-                decoration: InputDecoration(
-                    hintText: 'email_hint'.tr,
-                    border: OutlineInputBorder(),
-                    focusedBorder: OutlineInputBorder()),
-              ),
-              SizedBox(
-                height: hieght * 0.02,
-              ),
-             Obx(() =>  TextFormField(
-               obscureText: !loginController.isTrue.value,
-               // obscuringCharacter: "*",
-               controller: loginController.password.value,
-               focusNode: loginController.passFocusNode.value,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40),
+            child: Form(
+              key: _formkey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: hieght * 0.02,
+                  ),
+                  TextFormField(
+                    textInputAction: TextInputAction.next,
+                    controller: loginController.emailController.value,
+                    focusNode: loginController.emailFocusNode.value,
+                    validator: (value) {
+                      if (value==null || value.isEmpty) {
+                        return "Enter email";
+                      }
+                    },
+                    onFieldSubmitted: (value) {
+                      Utils.fieldFocusChange(
+                          context,
+                          loginController.emailFocusNode.value,
+                          loginController.passFocusNode.value);
+                    },
+                    decoration: InputDecoration(
+                        hintText: 'email_hint'.tr,
+                        border: OutlineInputBorder(),
+                        focusedBorder: OutlineInputBorder()),
+                  ),
+                  SizedBox(
+                    height: hieght * 0.02,
+                  ),
+                  Obx(() => TextFormField(
+                    textInputAction: TextInputAction.next,
+                        obscureText: !loginController.isTrue.value,
+                        obscuringCharacter: "*",
 
-               decoration: InputDecoration(
-                   suffixIcon: TextButton(
-                     onPressed: () {
-                       loginController.getPassword();
-                     },
-                     child: loginController.isTrue.value
-                         ?Text("Hide") :Text("Show")
-                         ,
-                   ),
-                   hintText: 'pass_hint'.tr,
-                   border: OutlineInputBorder(),
-                   focusedBorder: OutlineInputBorder()),
-             )),
-              SizedBox(
-                height: hieght * 0.02,
+                        controller: loginController.passwordController.value,
+                        focusNode: loginController.passFocusNode.value,
+                        validator: (value) {
+                          if (value==null || value.isEmpty) {
+                           return 'Enter password';
+                          }
+                        },
+                        onFieldSubmitted: (value) {
+                          Utils.fieldFocusChange(
+                              context,
+                              loginController.emailFocusNode.value,
+                              loginController.passFocusNode.value);
+                        },
+                        decoration: InputDecoration(
+                            suffixIcon: TextButton(
+                              onPressed: () {
+                                loginController.getPassword() ;
+                              },
+                              child: loginController.isTrue.value
+                                  ? Text("Hide")
+                                  : Text("Show"),
+                            ),
+                            hintText: 'pass_hint'.tr,
+                            border: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder()),
+                      )),
+                  SizedBox(
+                    height: hieght * 0.02,
+                  ),
+                  RoundButton(
+                    title: 'login'.tr,
+                    onPress: () {
+                      if (_formkey.currentState!.validate()) {
+                        if (loginController.emailController.value.text==
+                            "email@gmail.com" ||
+                            loginController.passwordController.value.text==
+                                "password"
+                        ) {
+                          Get.to(HomePage());
+                          loginController.emailController.value.clear();
+                          loginController.passwordController.value.clear();
+                        }
+                        else {
+                          Utils.showSnackber("Please correct information", "Enter correct email and password");
+                        }
+                      }
+                      // Get.to(HomePage());
+                    },
+                    height: 50,
+                    width: width * 1,
+                    buttonColor: AppColor.buttonColor,
+                  ),
+                ],
               ),
-              RoundButton(
-                title: 'login'.tr,
-                onPress: () {
-                  Get.to(HomePage);
-                },
-                height: 50,
-                width: width * 1,
-                buttonColor: AppColor.buttonColor,
-              ),
-            ],
+            ),
           ),
         ),
       ),
     );
   }
 }
-

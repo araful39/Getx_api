@@ -3,25 +3,19 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_api/res/colors/app_color.dart';
+import 'package:getx_api/res/routes/routes_name.dart';
+import 'package:getx_api/view/login_screen.dart';
 import 'package:getx_api/view_model/services/splash_service.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-
-SplashService splashService=SplashService();
-@override
-  void initState() {
- splashService.isLogin();
-    super.initState();
-  }
+// SplashService splashService=SplashService();
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration(seconds: 2),(){
+      Get.off(LoginScreen());
+    });
     return Scaffold(
       backgroundColor: AppColor.tealColor,
       body: Center(
