@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+
 import 'package:http/http.dart';
 
 class LoginController extends GetxController {
@@ -22,7 +23,7 @@ class LoginController extends GetxController {
       print(data);
       if (response.statusCode == 200) {
         loading.value=false;
-        Get.snackbar("Login successfull", data["Login"]);
+        Get.snackbar("Login successfull", "yor are login");
       } else {
         loading.value=false;
         Get.snackbar("Login Failed", data["error"]);
